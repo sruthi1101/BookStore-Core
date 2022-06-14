@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +24,7 @@ namespace Webgentle.BookStoreCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,16 +38,25 @@ namespace Webgentle.BookStoreCore
             {
                 app.UseExceptionHandler("/Error");
             }
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("hello my midlle ware");
+            //    await next();
+            //});
 
-            app.UseStaticFiles();
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("hello my 2nd midlle ware");
+            //});
+            //app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
